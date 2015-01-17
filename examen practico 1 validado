@@ -1,0 +1,74 @@
+// examen practico 1 validado.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+float IMPUESTO (float sb);
+float AFP (float sb);
+
+int main ()
+{
+	int cod;
+	float sb, imp=0, afp=0, sn=0;
+
+	do 
+	{
+		cout<<endl<<"Ingrese el codigo del empleado";
+		cin>>cod;
+	}while (((cod<=0)||(cod>=200))&&(cod!=-999));
+
+	while (cod!=-999)
+	{
+		do 
+		{
+			cout<<endl<<"Ingrese el salario ";
+			cin>>sb;
+		}while ((sb<=0)||(sb>=16000));
+
+		if (sb>2800)
+		{
+			imp=IMPUESTO(sb);
+			afp=AFP(sb);
+		}
+		
+		sn=sb-imp-afp;
+
+		cout<<cod<<"\t"<<sb<<"\t"<<imp<<"\t"<<afp<<"\t"<<sn;
+		
+		do 
+		{
+		cout<<endl<<"Ingrese el codigo del empleado";
+		cin>>cod;
+		}while (((cod<=0)||(cod>=200))&&(cod!=-999));
+
+	}
+	
+	cout<<"Gracias!!!";
+	getch();
+	return 0;
+}
+
+	float IMPUESTO (float sb)
+	{
+		float x=0.13;
+		float a;
+		
+		if (sb>10000){
+			x=0.14;}
+
+		a=sb*x;
+
+		return a;
+
+	}
+	
+	float AFP (float sb)
+	{
+		float b;
+		b=sb*0.121;
+		return b;
+	}
