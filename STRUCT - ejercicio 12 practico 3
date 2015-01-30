@@ -1,0 +1,95 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+#define N 30
+ 
+using namespace std;
+
+struct a
+{
+	string Tor[N];
+};
+
+void cargarVecDeVec(a vec[],int n);
+void mostrarvv(a vec[],int n);
+void cosito(a vec[],int n, a mat[N][N]);
+void mostrarmv(a mat[N][N],int n);
+
+void main()
+{
+	a vector[N];
+	a matriz[N][N];
+	
+	int n;
+	do{
+		cout<<"Ingrese el numero de elementos: ";
+		cin>>n;
+	}while (n<0);
+
+	cargarVecDeVec(vector,n);
+	mostrarvv(vector,n);
+	cout<<endl<<endl;
+	cosito(vector,n,matriz);
+	mostrarmv(matriz,n);
+
+	getch();
+
+}
+
+void cargarVecDeVec(a vec[],int n)
+{
+	for (int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+		    cout<<"Cargue el  vector: ";
+			cin>>vec[i].Tor[j];
+		}
+	}
+
+}
+
+void mostrarvv(a vec[],int n)
+{
+	for (int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<vec[i].Tor[j]<<"\t";
+		}
+		cout<<endl;
+	}
+
+}
+
+void cosito(a vec[],int n, a mat[N][N])
+{
+	int i,j,k;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			for(k=0;k<n;k++)
+			{
+				mat[i][j].Tor[k]=vec[i].Tor[j];
+			}
+		}
+	}
+}
+
+void mostrarmv(a mat[N][N],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			for(int k=0;k<n;k++)
+			{
+				cout<<mat[i][j].Tor[k]<<"\t";
+			}
+		}
+		cout<<endl;
+	}
+}
