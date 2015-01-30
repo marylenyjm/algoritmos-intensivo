@@ -1,0 +1,84 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+#define TAM 30
+ 
+using namespace std;
+
+struct t_usuario
+{
+	int code;
+	string password;
+};
+
+void cargarvector(t_usuario v[],int n);
+void mostrarvector(t_usuario v[],int n);
+void burbuja (t_usuario v[],int n);
+	
+int main()
+{
+	t_usuario usuario[TAM];
+	int n;
+	string codigo;
+	
+	do{
+	cout<<"Ingrese la cantidad de usuarios ";
+	cin>>n;
+	}while((n<=0)||(n>TAM));
+	
+	cargarvector(usuario,n);
+	mostrarvector(usuario,n);
+	burbuja (usuario,n);
+	mostrarvector(usuario,n);
+	
+	getch();
+	return 0;
+
+}
+ 
+void cargarvector(t_usuario v[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Ingrese el Id de Usuario";
+		cin>>v[i].code;
+		cin.ignore(256,'\n');
+		cout<<"Ingrese la contraseña";
+		getline(cin,v[i].password);
+
+	}
+}
+
+void mostrarvector(t_usuario v[],int n)
+{
+	cout<<"id usuario \t contraseña";
+	for(int i=0;i<n;i++)
+	{
+		cout<<endl<<"    "<<v[i].code<<"\t\t"<<v[i].password;
+		cout<<"\n";
+
+	}
+}
+
+void burbuja (t_usuario v[],int n)
+{
+	int i,j;
+	t_usuario aux;
+
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			if(v[i].code>v[j].code)
+			{
+				aux=v[i];
+				v[i]=v[j];
+				v[j]=aux;
+			}
+		}
+	}
+	
+}
+
