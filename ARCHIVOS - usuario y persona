@@ -1,0 +1,135 @@
+// archivos usuario y persona.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include "stdio.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+struct t_persona
+{
+	int id;
+	string ci;
+	string fechanac;
+	string nombre;
+	string apellido;
+};
+
+struct t_usuario
+{
+	string cuenta;
+	string password;
+	int id;
+};
+
+	t_persona persona;
+	t_usuario reg;
+	FILE* alias;
+	FILE *ptr;
+
+	void alta_persona(void);
+	void altaUsuario();
+
+void main()
+{
+
+	altaUsuario();
+	alta_persona();
+	getch();
+}
+void alta_persona(void)
+{
+	int id;
+	cout<<endl<<endl<<"Altas de registros de personas"<<endl<<endl;
+	alias=fopen("PERSONA.SEC","rb+");
+
+	if (alias==NULL)
+		alias=fopen("PERSONA.SEC","wb");
+
+	cout<<"Ingrese el id de la persona :";
+	cin>>id;
+
+	fread(&persona,sizeof(persona),1,alias);
+
+	while(!feof(alias))
+	{
+		if(persona.id==id)
+		{
+			cout<<"Registro duplicado"<<endl;
+			fclose(alias);
+			getch();
+		}
+		fread(&persona,sizeof(persona),1,alias);
+	}
+	cin.ignore(256,'\n');
+	cout<<"CI: ";
+	getline(cin,persona.ci);
+	cin.ignore(256,'\n');
+	cout<<"Fecha de Nacimiento";
+	getline(cin,persona.fechanac);
+	cin.ignore(256,'\n');
+	cout<<"Nombre";
+	getline(cin,persona.nombre);
+	cin.ignore(256,'\n');
+	cout<<"Apellido";
+	getline(cin,persona.apellido);
+	
+	persona.id=id;
+	
+	fwrite(&persona,sizeof(persona),1,alias);
+	fclose(alias);
+
+	cout<<endl<<"Persona registrada";
+	cout<<endl<<"Oprima cualquier tecla para continuar";
+	getch();
+
+
+	
+}
+
+
+void altaUsuario ()
+{	string tacuen;
+	cout<<"Altas de registros de usuarios"<<endl<<endl;
+	ptr=fopen("usuarios.dat","rb+");
+
+	if (ptr==NULL)
+		ptr=fopen("usuarios.dat","wb");
+
+	cout<<"Ingrese cuenta del usuario :";
+	getline(cin,tacuen);
+
+	fread(&reg,sizeof(reg),1,ptr);
+
+	while(!feof(ptr))
+	{
+		if(reg.cuenta==tacuen)
+		{
+			cout<<endl<<"Registro duplicado";
+			fclose(ptr);
+			getch();
+		}
+		fread(&reg,sizeof(reg),1,ptr);
+	}
+	cin.ignore(256,'\n');
+	cout<<"ingrese contraseña ";
+	getline(cin,reg.password);
+	cin.ignore(256,'\n');
+	cout<<"ingrese id :";
+	cin>>reg.id;
+	
+	reg.cuenta=tacuen;
+	
+	fwrite(&reg,sizeof(reg),1,ptr);
+	fclose(ptr);
+
+	cout<<endl<<"Usuario registrado";
+	cout<<endl<<"Oprima cualquier tecla para continuar";
+	cout<<endl<<"=======================================";
+	getch();
+
+
+}
