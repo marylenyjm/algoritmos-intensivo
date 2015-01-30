@@ -1,0 +1,80 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+#define N 30
+ 
+using namespace std;
+
+struct a
+{
+	string Tor[N];
+};
+
+void cargarVecDeVec(a vec[],int n);
+void mostrarvv(a vec[],int n);
+void invertir(a vec[],int n);
+
+void main()
+{
+	a vector[N];
+	
+	int n;
+	do{
+		cout<<"Ingrese el numero de elementos: ";
+		cin>>n;
+	}while (n<0);
+
+	cargarVecDeVec(vector,n);
+	mostrarvv(vector,n);
+	cout<<endl<<endl;
+	invertir(vector,n);
+	mostrarvv(vector,n);
+
+	getch();
+
+}
+
+void cargarVecDeVec(a vec[],int n)
+{
+	for (int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+		    cout<<"Cargue el  vector: ";
+			cin>>vec[i].Tor[j];
+		}
+	}
+
+}
+
+void mostrarvv(a vec[],int n)
+{
+	for (int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<vec[i].Tor[j]<<"\t";
+		}
+		cout<<endl;
+	}
+
+}
+
+void invertir(a vec[],int n)
+{
+	int i,j;
+	a aux[N];
+
+	for(i=0;i<n/2;i++)
+	{	for(j=0;j<n;j++)
+		{
+			aux[i].Tor[i]=vec[i].Tor[j];
+			vec[i].Tor[j]=vec[n-1-i].Tor[n-j-1];
+			vec[n-1-i].Tor[n-j-1]=aux[i].Tor[i];
+		}
+	
+	}
+
+}
