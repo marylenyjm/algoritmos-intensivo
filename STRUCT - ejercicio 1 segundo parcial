@@ -1,0 +1,106 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+#define TAM 30
+ 
+using namespace std;
+
+struct empleado_t
+{
+	int id;
+	string nombre;
+	string fechanac;
+	float salariobruto;
+};
+
+
+void cargarvector(empleado_t emp[],int n);
+void planiEmple(empleado_t emp[],int n);
+void mostrarvector(empleado_t emp[],int n,float salneto[]);
+
+	
+int main()
+{
+	empleado_t empleado[TAM];
+	int n;
+	string codigo;
+	
+	do{
+	cout<<"Ingrese la cantidad de usuarios ";
+	cin>>n;
+	cout<<endl;
+	}while((n<=0)||(n>TAM));
+	
+	cargarvector(empleado,n);
+	planiEmple(empleado,n);
+
+	getch();
+	return 0;
+
+}
+ 
+void cargarvector(empleado_t emp[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Ingrese el Id de Empleado: ";
+		cin>>emp[i].id;
+		cin.ignore(256,'\n');
+		cout<<"Ingrese el nombre: ";
+		getline(cin,emp[i].nombre);
+		cout<<"Ingrese la fecha de nacimiento: ";
+		getline(cin,emp[i].fechanac);
+		cout<<"Ingrese el salario bruto: ";
+		cin>>emp[i].salariobruto;
+		cout<<endl;
+
+	}
+}
+
+void mostrarvector(empleado_t emp[],int n,float salneto[])
+{
+	cout<<endl<<"================================================================";
+	cout<<endl<<"               <<  **  PLANILLA DE SUELDO  **  >>               ";
+	cout<<endl<<"================================================================";
+	cout<<endl<<endl;
+	cout<<endl<<"================================================================";
+	cout<<endl<<"Nombre\t\tFecha de Nac\tId\tSalario Neto";
+	cout<<endl<<"================================================================";
+	for(int i=0;i<n;i++)
+	{
+		cout<<endl<<emp[i].nombre<<"\t"<<emp[i].fechanac<<"\t"<<emp[i].id<<"\t"<<salneto[i];
+	}
+
+	cout<<endl<<"================================================================";
+}
+
+float AFP(float sb)
+{
+	float a;
+	a=sb*0.12;
+	return a;
+}
+
+float IVA(float sb)
+{
+	float b;
+	b=sb*0.13;
+	return b;
+}
+
+
+void planiEmple(empleado_t emp[],int n)
+{
+	float sn[TAM],iva,afp,sb;
+	for(int i=0;i<n;i++)
+	{
+		afp=AFP(emp[i].salariobruto);
+		iva=IVA(emp[i].salariobruto);
+		sb=emp[i].salariobruto;
+		
+		sn[i]=sb-afp-iva;
+	}
+	mostrarvector(emp,n,sn);
+}
