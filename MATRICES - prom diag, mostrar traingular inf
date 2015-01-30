@@ -1,0 +1,141 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+#define N 30
+#define M 30
+
+using namespace std;
+
+void cargarMatriz(int mat[N][M],int n, int m);
+void mostrarMatriz(int mat[N][M],int n, int m);
+int calcularProm(int mat[N][M],int n, int m);
+void mostrarTriang(int mat[N][M],int n, int m);
+int esCuadrada(int mat[N][M],int n, int m);
+
+int main()
+{
+	int n,m,mat[N][M],op,prom,ban;
+	//se esta validando la fila
+	do{
+	cout<<"Ingrese el numero de filas";
+	cin>>n;
+	}while ((n<0)||(n>N));
+	//se esta validando la columna
+	do{
+	cout<<"Ingrese el numero de columnas";
+	cin>>m;
+	}while ((n<0)||(n>M));
+	//empieza el menu
+	do{
+		cout<<endl<<"-----MENU-----";
+		cout<<endl<<"1. Cargar la matriz";
+		cout<<endl<<"2. Mostrar la matriz";
+		cout<<endl<<"3. calcular el promedio de la diagonal";
+		cout<<endl<<"4. Mostrar la triangular inferior";
+		cout<<endl<<"0. Salir";
+		cout<<endl<<"Seleccione una opcion: ";
+		cin>>op;
+
+		switch(op)
+		{
+		case 1:
+			cargarMatriz(mat,n,m);
+			getch();
+			break;
+		case 2:
+			mostrarMatriz(mat,n,m);
+			getch();
+			break;
+		case 3:
+			ban=esCuadrada(mat,n,m);
+			if(ban==1)
+			{
+				prom=calcularProm(mat,n,m);
+				cout<<"El promedio es: "<<prom<<endl;
+			}
+			else
+			{
+				cout<<"La matriz no es cuadrada";
+			}
+			getch();
+			break;
+		case 4:
+			ban=esCuadrada(mat,n,m);
+			if(ban==1)
+			{
+				mostrarTriang(mat,n,m);
+			}
+			else
+			{
+				cout<<"La matriz no es cuadrada";
+			}
+			getch();
+			break;
+		default : 
+			cout<<"Gracias!!";
+			getch();
+			break;
+		}
+		system("cls");
+		}while (op!=0);
+
+	getch();
+	return 0;
+}
+
+void cargarMatriz(int mat[N][M],int n, int m)
+{
+	for(int i=0;i<n;i++)
+		for(int j=0;j<m;j++)
+		{
+			cout<<"m["<<i<<"]["<<j<<"]=";
+			cin>>mat[i][j];
+		}
+}
+
+void mostrarMatriz(int mat[N][M],int n, int m)
+{
+	
+	for(int i=0;i<n;i++)
+	{for(int j=0;j<m;j++)
+		{
+			cout<<mat[i][j]<<"\t";
+		}
+	cout<<endl;
+	}
+	
+}
+
+int calcularProm(int mat[N][M],int n, int m)
+{
+	int s=0;
+	float p; //variable intermedia
+	
+	for(int i=0;i<n;i++)
+		s=s+mat[i][i]; //acumulador	
+	
+	p=s/n;
+	return p;	
+}
+
+void mostrarTriang(int mat[N][M],int n, int m)
+{
+		for(int i=0;i<n;i++)
+		{for(int j=0;j<i;j++)
+			{
+				cout<<mat[i][j]<<"\t";
+			}
+		cout<<endl;
+		}
+
+}
+
+int esCuadrada(int mat[N][M],int n, int m)
+{
+	int ban=0;
+	if(n==m)
+		ban=1;
+
+	return ban;
+}
