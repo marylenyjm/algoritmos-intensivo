@@ -1,0 +1,67 @@
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+#include <string>
+
+#define N 30
+using namespace std;
+
+void cargarmat(int matriz[N][N],int n);
+void mostrarmat(int matriz[N][N],int n);
+float diagonal(int matriz[N][N],int n);
+
+void main()
+{
+	int n,mat[N][N];
+	float prom;
+
+	do{
+	cout<<endl<<"Ingrese el tamaño de la matriz cuadrada";
+	cin>>n;
+	}while(n<=0 || n>N);
+
+	cargarmat(mat,n);
+	mostrarmat(mat,n);
+	prom=diagonal(mat,n);
+	cout<<endl<<"El promedio de la diagonal es :"<<prom;
+	getch();
+}
+
+void cargarmat(int matriz[N][N],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<"mat["<<i<<"]["<<j<<"]";
+			cin>>matriz[i][j];
+		}
+	}
+
+}
+
+void mostrarmat(int matriz[N][N],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<matriz[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+}
+
+float diagonal(int matriz[N][N],int n)
+{
+	float s=0;
+	float p;
+
+	for(int i=0;i<n;i++)
+	{
+		s=s+matriz[i][i];
+	}
+	p=s/n;
+	return p;
+}
