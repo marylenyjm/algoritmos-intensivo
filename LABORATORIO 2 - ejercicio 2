@@ -1,0 +1,92 @@
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+#include <string>
+
+#define N 60
+
+using namespace std;
+
+struct productos
+{
+	int id;
+	string descrip;
+	float precio;
+	int cantidad;
+	float costo;
+};
+
+void cargar (productos vec[],int n);
+void mostrar(productos vec[],int n,float total[]);
+void reporte(productos vec[],int n);
+
+void main()
+{
+	int n;
+	productos vector[N];
+
+	cout<<"Autora: Mary Leny Justiniano";
+	do{
+	cout<<endl<<"Ingrese la cantidad de productos: ";
+	cin>>n;
+	}while(n<0 || n>N);
+	cargar(vector,n);
+	reporte(vector,n);
+	
+	getch();
+
+	
+}
+
+void cargar(productos vec[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<endl<<"Ingrese el id: ";
+		cin>>vec[i].id;
+		cin.ignore();
+		cout<<"Ingrese la descripcion: ";
+		getline(cin,vec[i].descrip);
+		cout<<"Ingrese el precio: ";
+		cin>>vec[i].precio;
+		cout<<"Ingrese la cantidad: ";
+		cin>>vec[i].cantidad;
+		cout<<"Ingrese el costo: ";
+		cin>>vec[i].costo;
+		cout<<endl;
+
+	}
+}
+
+void mostrar(productos vec[],int n,float total[],float tv)
+{
+
+	cout<<endl<<"=====================================================";
+	cout<<endl<<"             **  REPORTE DE PRODUCTOS  **            ";
+	cout<<endl<<"=====================================================";
+	cout<<endl<<endl;
+	cout<<endl<<"id\tDescripcion\tPrecio\tCantidad\tTotal";
+	cout<<endl<<"=====================================================";
+	
+	for (int i=0;i<n;i++)
+	{
+	cout<<endl<<vec[i].id<<"\t"<<vec[i].descrip<<"\t"<<vec[i].precio<<"\t"<<vec[i].cantidad<<"\t\t"<<total[i];
+	}
+	cout<<endl<<"=====================================================";
+	cout<<endl<<"Total vendido\t\t\t\t\t"<<tv;
+}
+
+void reporte(productos vec[],int n)
+{
+	float tot[N],tv=0;
+
+	for (int i=0;i<n;i++)
+	{
+		tot[i]=vec[i].precio*vec[i].cantidad;
+		tv=tv+tot[i];
+	}
+
+
+	mostrar(vec,n,tot,tv);
+}
