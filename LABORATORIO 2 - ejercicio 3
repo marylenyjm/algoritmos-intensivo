@@ -1,0 +1,86 @@
+#include "stdafx.h"
+#include "math.h"
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct producto
+{
+	int id;
+	string descrip;
+	float precio;
+	int cantidad;
+	float costo;
+};
+
+
+producto productos;
+FILE*alias;
+
+void cargar(void);
+
+
+void main()
+{
+	cargar();
+	getch();
+
+}
+
+void cargar(void)
+{
+	int id,op;
+	cout<<endl<<"ALTAS DE PRODUCTOS";
+	do{
+	alias=fopen("PRODUCTO.DAT","rb+");
+
+	if (alias==NULL)
+	{
+		alias=fopen("PRODUCTO.DAT","wb");
+	}
+
+	cout<<endl<<"Ingrese el id del producto";
+	cin>>id;
+
+	fread(&productos,sizeof(productos),1,alias);
+
+	while(!feof(alias))
+	{
+		if(productos.id==id)
+		{
+			cout<<endl<<"Registro duplicado";
+			fclose(alias);
+			getch();
+
+		}
+		fread(&productos,sizeof(productos),1,alias);
+	}
+	
+		cin.ignore();
+		cout<<"Ingrese la descripcion: ";
+		getline(cin,productos.descrip);
+		cout<<"Ingrese el precio: ";
+		cin>>productos.precio;
+		cout<<"Ingrese la cantidad: ";
+		cin>>productos.cantidad;
+		cout<<"Ingrese el costo: ";
+		cin>>productos.costo;
+		cout<<endl;
+
+		productos.id=id;
+
+		fwrite(&productos,sizeof(productos),1,alias);
+		fclose(alias);
+
+		cout<<endl<<"Producto Registrada correctamente";
+		cout<<endl<<"Desear continuar?";
+		cout<<endl<<"1. Si";
+		cout<<endl<<"0. No";
+		cin>>op;
+		}while(op!=0);
+		getch();
+
+}
